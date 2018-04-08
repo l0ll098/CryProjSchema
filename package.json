@@ -7,7 +7,6 @@
   },
   "devDependencies": {
     "gulp": "3.9.1",
-    "gulp-beautify": "2.0.1",
     "gulp-rename": "1.2.2",
     "gulp-replace": "^0.6.1"
   }
