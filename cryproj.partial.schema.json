@@ -295,7 +295,7 @@
       "default": "sys_target_platforms",
       "pattern": "^\\S*",
       "enum": [
-        "$$$1$$$"
+        "$$$CVARS$$$"
       ]
     },
     "commands": {
@@ -306,7 +306,7 @@
       "default": "",
       "pattern": "^\\S*",
       "enum": [
-        "$$$2$$$"
+        "$$$COMMANDS$$$"
       ]
     }
   }

@@ -11,8 +11,8 @@ let tasks = Object.freeze({
 
 let placeholders = Object.freeze({
     version: "$$$VERSION$$$",
-    cvars: "$$$1$$$",
-    commands: "$$$2$$$"
+    cvars: "$$$CVARS$$$",
+    commands: "$$$COMMANDS$$$"
 });
 
 let engineVersions = [
