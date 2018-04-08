@@ -2,6 +2,7 @@ const gulp = require("gulp");
 const rename = require("gulp-rename");
 const replace = require("gulp-replace");
 const fs = require("fs");
+const jsonBeautifier = require("./jsonBeautifier");
 
 let tasks = Object.freeze({
     generateSchema: "generateSchema"
@@ -22,6 +23,7 @@ gulp.task(tasks.generateSchema, () => {
         .pipe(replace(placeholders.cvars, fetchCvars(version)))
         .pipe(replace(placeholders.commands, fetchCommands(version)))
         .pipe(rename("cryproj." + version + ".schema.json"))
+        .pipe(jsonBeautifier("\t"))
         .pipe(gulp.dest("out/"));
 });
 
