@@ -1,6 +1,7 @@
 const gulp = require("gulp");
 const rename = require("gulp-rename");
 const replace = require("gulp-replace");
+const beautify = require("gulp-beautify");
 const fs = require("fs");
 
 let tasks = Object.freeze({
@@ -35,7 +36,7 @@ gulp.task(tasks.generateSchema, () => {
 
             return cvars.join("\",\"");
         }))
-        .pipe(replace(placeholders.commands, ()=>{
+        .pipe(replace(placeholders.commands, () => {
             content = fs.readFileSync("./in/consolecommandsandvars." + version + ".txt", "utf-8");
             let commands = [];
 
@@ -50,6 +51,7 @@ gulp.task(tasks.generateSchema, () => {
 
             return commands.join("\",\"");
         }))
+        .pipe(beautify({ indent_with_tabs: true, indent_size: 4 }))
         .pipe(rename("cryproj." + version + ".schema.json"))
         .pipe(gulp.dest("out/"));
 });
