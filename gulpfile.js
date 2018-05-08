@@ -23,6 +23,7 @@ let engineVersions = [
     "55",
     "dev",
 
+    // Generic version: It allows to use the schema for ALL the other versions in this array
     "all"
 ];
 
@@ -68,7 +69,7 @@ function getFormattedEngineVersion(version) {
 
 function getApplicableEngineVersions(version) {
 
-    if (version === "all"){
+    if (version === "all") {
 
         let versions = [];
         engineVersions.forEach(v => {
@@ -79,7 +80,7 @@ function getApplicableEngineVersions(version) {
 
         return versions.join("\",\"");
     }
-    
+
     return getFormattedEngineVersion(version);
 }
 
@@ -90,7 +91,7 @@ function generateSchema(version) {
     if (fs.existsSync("./in/consolecommandsandvars." + version + ".txt")) {
         return gulp
             .src("cryproj.partial.schema.json")
-            .pipe(replace(placeholders.version, engineVersion.split("engine-")[1]))
+            .pipe(replace(placeholders.version, engineVersion === "engine-all" ? "*" : engineVersion.split("engine-")[1]))
             .pipe(replace(placeholders.cvars, fetchCvars(version)))
             .pipe(replace(placeholders.commands, fetchCommands(version)))
             .pipe(replace(placeholders.engineVersions, getApplicableEngineVersions(version)))
