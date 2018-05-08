@@ -21,7 +21,7 @@ let engineVersions = [
     "53",
     "54",
     "55",
-    "5dev"
+    "dev"
 ];
 
 function fetchCvars(version) {
@@ -56,51 +56,16 @@ function fetchCommands(version) {
     return commands.join("\",\"");
 }
 
-function getEngineIdFromString(version) {
-    let engineVersion = "engine-";
-
-    if (version.endsWith("dev")) {
-        return "engine-dev";
-    }
-    if (version.indexOf("prev") >= 0) {
-        engineVersion += version.toString()[0] + "." + version.substring(1, version.indexOf("prev"));
-    } else {
-        engineVersion += version.toString()[0] + "." + version.substring(1, version.length);
-    }
-
-    return engineVersion;
-}
-
-function getAllApplicableEngineVersions(version) {
-
-    let lastApplicable = version;
-    if (version.indexOf("prev") >= 0) {
-        let prevEngine = getEngineIdFromString(version);
-        let secondVersion = version.substring(1, version.indexOf("prev"));
-
-        lastApplicable = prevEngine[0] + (parseInt(secondVersion) - 1);
-    }
-
-    let versions = [];
-
-    for (let i = 0; i < engineVersions.length; i++) {
-        if (getEngineIdFromString(engineVersions[i]) !== "engine-dev") {
-            if (parseInt(engineVersions[i]) <= parseInt(lastApplicable)) {
-                versions.push(getEngineIdFromString(engineVersions[i]));
-            } else {
-                break;
-            }
-        }
-    }
-
-    // Every engine version can also use "engine-dev"
-    versions.push("engine-dev");
-
-    return versions.join("\",\"");
-}
 
 function generateSchema(version) {
-    let engineVersion = version.toString()[0] + "." + version.substring(1, version.length);
+
+    let engineVersion;
+    if (version.startsWith("5")) {
+        engineVersion = version.toString()[0] + "." + version.substring(1, version.length);
+    } else {
+        // If it's the dev version or a custom one, just use the version as name
+        engineVersion = version;
+    }
 
     if (fs.existsSync("./in/consolecommandsandvars." + version + ".txt")) {
         return gulp
@@ -108,7 +73,7 @@ function generateSchema(version) {
             .pipe(replace(placeholders.version, engineVersion))
             .pipe(replace(placeholders.cvars, fetchCvars(version)))
             .pipe(replace(placeholders.commands, fetchCommands(version)))
-            .pipe(replace(placeholders.engineVersions, getAllApplicableEngineVersions(version)))
+            .pipe(replace(placeholders.engineVersions, "engine-" + engineVersion))
             .pipe(rename("cryproj." + version + ".schema.json"))
             .pipe(jsonBeautifier("\t"))
             .pipe(gulp.dest("out/"));
