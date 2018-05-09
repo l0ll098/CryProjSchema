@@ -16,7 +16,7 @@ A JSON schema for [CRYENGINE](https://github.com/CRYTEK/CRYENGINE) projects (.cr
  * Can I generate the schema by myself?
    > Yes. [Read more in this section](#generate-schema-by-yourself)
  * Can I use this project to generate schemas for a custom version of CRYENGINE?
-   > Yes. [Check this out](#generate-schema-for-custom-CRYENGINE-version)
+   > Yes. [Check this out](#generate-schema-for-custom-cryengine-version)
 
 
 # Generate schema by yourself
