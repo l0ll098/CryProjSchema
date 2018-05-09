@@ -14,9 +14,9 @@ A JSON schema for [CRYENGINE](https://github.com/CRYTEK/CRYENGINE) projects (.cr
       "$schema": "http://json.schemastore.org/cryproj"
     ```
  * Can I generate the schema by myself?
-   > Yes. [Read more in this section](#Generate-schema-by-yourself)
+   > Yes. [Read more in this section](#generate-schema-by-yourself)
  * Can I use this project to generate schemas for a custom version of CRYENGINE?
-   > Yes. [Check this out](#Generate-schema-for-custom-CRYENGINE-version)
+   > Yes. [Check this out](#generate-schema-for-custom-CRYENGINE-version)
 
 
 # Generate schema by yourself
@@ -28,7 +28,7 @@ To generate a JSON schema you will need to follow these steps:
  - Finally generate the schema running the command <code>npm run gulp</code>. The output will be in the folder <code>out</code>
 
 # Generate schema for custom CRYENGINE version
- - Firstly, you need to follow the first four steps of [this guide](#Generate-schema-by-yourself).
+ - Firstly, you need to follow the first four steps of [this guide](#generate-schema-by-yourself).
  - After that you will need to modify the <code>gulpfile.js</code> and adding the identifier of your engine in the <code>engineVersions</code> array (if you don't care about other versions, you can always delete them).
  - Finally you can generate the schema running the command <code>npm run gulp</code>. The output will be in the folder <code>out</code>
 
