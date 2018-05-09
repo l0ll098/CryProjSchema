@@ -2,11 +2,13 @@ const gulp = require("gulp");
 const rename = require("gulp-rename");
 const replace = require("gulp-replace");
 const fs = require("fs");
+const zipFolder = require('zip-folder');
 const jsonBeautifier = require("./jsonBeautifier");
 
 let tasks = Object.freeze({
     generateSchema: "generateSchema",
-    generateSchemaForAllVersions: "generateSchemaForAllVersions"
+    generateSchemaForAllVersions: "generateSchemaForAllVersions",
+    packageSchemas: "packageSchemas"
 });
 
 let placeholders = Object.freeze({
@@ -103,6 +105,20 @@ function generateSchema(version) {
     }
 }
 
+
+function packageSchemas() {
+    if (fs.existsSync("out")) {
+        zipFolder('out/', 'release.zip', function (err) {
+            if (err) {
+                throw err;
+            }
+        });
+    } else {
+        console.error("You need to generate the schema files before running this command!");
+    }
+}
+
+
 /**
  * Generate the schema file for the dev engine
  */
@@ -121,6 +137,13 @@ gulp.task(tasks.generateSchemaForAllVersions, () => {
 });
 
 /**
+ * Generates a zipped folder containing the already generated schema files
+ */
+gulp.task(tasks.packageSchemas, () => {
+    packageSchemas();
+});
+
+/**
  * Run all
  */
-gulp.task("default", [tasks.generateSchemaForAllVersions]);
+gulp.task("default", [tasks.generateSchemaForAllVersions, tasks.packageSchemas]);

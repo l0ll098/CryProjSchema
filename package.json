@@ -9,6 +9,7 @@
     "gulp": "3.9.1",
     "gulp-rename": "1.2.2",
     "gulp-replace": "^0.6.1",
-    "through2": "2.0.3"
+    "through2": "2.0.3",
+    "zip-folder": "1.0.0"
   }
 }
