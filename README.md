@@ -17,7 +17,8 @@ A JSON schema for [CRYENGINE](https://github.com/CRYTEK/CRYENGINE) projects (.cr
    > Yes. [Read more in this section](#generate-schema-by-yourself)
  * Can I use this project to generate schemas for a custom version of CRYENGINE?
    > Yes. [Check this out](#generate-schema-for-custom-cryengine-version)
-
+ * Why using the *.all* version it gives some errors?
+   > It could be that you are using, for example, a CVAR that in the engine version you are using was defined but that has been removed with a following update. To overcome this issue, use the appropriate schema
 
 # Generate schema by yourself
 To generate a JSON schema you will need to follow these steps:
